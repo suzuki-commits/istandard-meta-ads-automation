@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meta広告自動化運用効率化仕様書｜株式会社アイスタンダード</title>
+<style>
+:root{--ink:#231d19;--body:#40352e;--muted:#605246;--paper:#fbf8f2;--white:#fffdf8;--line:#d9cbbd;--accent:#a23e09;--warm:#f7e7d6;--dark:#2b211b;--light:#fdf0e0;--orange:#ffae71}
+  *{box-sizing:border-box}
+  html{scroll-padding-top:5.4rem}
+  body{margin:0;background:var(--paper);color:var(--body);font:17px/1.78 "Noto Sans JP","Yu Gothic UI","Hiragino Sans",Meiryo,sans-serif;overflow-wrap:anywhere}
+  a{color:var(--accent);text-underline-offset:.2em}
+  a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #cc5418;outline-offset:3px}
+  h1,h2,h3,h4{margin:0;color:var(--ink);line-height:1.32;letter-spacing:-.02em}
+  h1{color:var(--light);font-size:clamp(34px,5.1vw,66px);font-weight:800}
+  h2{font-size:clamp(27px,3vw,41px);text-wrap:balance}
+  h3{font-size:25px;margin:1.65em 0 .4em}
+  h4{font-size:24px;margin:0 0 .35em}
+  p{margin:.55em 0 1em}
+  ul,ol{padding-inline-start:1.35em;margin:.55em 0 1em}
+  li+li{margin-top:.35em}
+  strong{color:var(--ink)}
+  code{font: .88em/1.45 "IBM Plex Mono",Consolas,monospace;color:#71320e;overflow-wrap:anywhere}
+  .wrap{width:min(1160px,calc(100% - 80px));margin-inline:auto}
+  .hero{background:var(--dark);color:var(--light);border-top:7px solid #d46528;padding:clamp(35px,6vw,72px) 0 30px}
+  .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;margin-bottom:clamp(20px,4vw,41px);color:#f2cfb1;font-weight:600}
+  .hero p{font-size:clamp(17px,1.8vw,21px);max-width:43em;margin:1em 0 1.35em}
+  .nav{position:sticky;top:0;z-index:2;background:var(--white);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;gap:8px 23px;align-items:center;flex-wrap:wrap;padding:10px 0}
+  .nav a{color:var(--ink);font-size:15px;text-decoration:none;font-weight:700}
+  .nav a:hover{text-decoration:underline}
+  .nav button{margin-left:auto}
+  button{background:var(--white);border:1px solid var(--line);border-radius:5px;color:var(--ink);padding:.35em .74em;font:inherit;font-size:15px;cursor:pointer}
+  .flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;list-style:none;margin:0;padding:1px;background:#755440;border-radius:7px;overflow:hidden}
+  .flow li{margin:0;background:#392b23;min-width:0;padding:13px 15px;color:#f7e3cf;line-height:1.55}
+  .flow li:nth-child(3),.flow li:nth-child(4){background:#4c3020}
+  .flow b{display:block;color:var(--orange);font-size:17px}
+  .flow span{display:block;margin-top:.15em}
+  main>section{padding:42px 0;border-bottom:1px solid var(--line)}
+  main>section:last-child{border-bottom:0}
+  .heading{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
+  .heading span{flex:none;color:var(--accent);font:700 18px/1 "IBM Plex Mono",Consolas,monospace;letter-spacing:.02em}
+  .intro{font-size:19px;max-width:54em}
+  .note{background:var(--warm);border-left:4px solid var(--accent);padding:13px 18px;margin:17px 0;color:var(--ink)}
+  .note p:last-child,.panel p:last-child{margin-bottom:0}
+  .twocol,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:17px 0}
+  .panel{background:var(--white);border:1px solid var(--line);border-radius:7px;padding:17px 20px;min-width:0}
+  .table{margin:15px 0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--white)}
+  table{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left}
+  th,td{padding:10px 15px;vertical-align:top;border-bottom:1px solid var(--line);font-size:17px;line-height:1.63}
+  thead th{background:#efe2d3;color:var(--ink);font-weight:750}
+  tbody th{color:var(--ink);font-weight:700;background:#fcf5eb}
+  tbody tr:last-child>*{border-bottom:0}
+  .refs{margin:.65em 0;color:var(--muted);font-size:15px}
+  .refs a{display:inline-block;margin-inline-end:.65em}
+  .steps{list-style:none;counter-reset:step;margin:14px 0;padding:0}
+  .steps li{position:relative;counter-increment:step;padding:12px 0 12px 50px;border-top:1px solid var(--line);margin:0}
+  .steps li::before{content:counter(step,decimal-leading-zero);position:absolute;top:16px;left:0;color:var(--accent);font:700 19px/1 "IBM Plex Mono",Consolas,monospace}
+  .steps p{margin:3px 0 0}
+  pre{margin:12px 0 15px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--white);border-radius:0 6px 6px 0;padding:14px 18px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);font:16px/1.65 Consolas,"Yu Gothic UI",monospace}
+  .copyhead{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-top:22px;flex-wrap:wrap}
+  .copyhead h3{margin:0}
+  .copytools{display:flex;align-items:center;gap:10px}
+  #copy-status{font-size:15px}
+  .preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+  .creative{padding:18px 20px;border:1px solid var(--line);border-top:4px solid #b85018;background:#fff7ea;border-radius:5px}
+  .creative:nth-child(2){border-top-color:#70462d;background:#f4ece1}
+  .creative .hook{font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.35;color:var(--ink);margin:.3em 0}
+  .creative p:last-child{margin:0}
+  .sources{columns:2;column-gap:34px}
+  .sources li{break-inside:avoid;padding-bottom:6px}
+  footer{background:#efe2d3;color:var(--ink);padding:25px 0 30px}
+  footer p{margin:0}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(max-width:780px){
+    .wrap{width:calc(100% - 36px)}
+    .nav{position:static}.nav .wrap{column-gap:14px}.nav button{margin-left:0}
+    .flow{grid-template-columns:repeat(3,minmax(0,1fr))}.flow li{padding:9px 10px}
+    main>section{padding:32px 0}.heading{gap:9px}.heading span{font-size:16px}
+    .twocol,.metrics,.preview{grid-template-columns:1fr}.sources{columns:1}
+    th,td{padding:9px 10px}
+  }
+  @media(max-width:600px){
+    h1{font-size:clamp(26px,7.8vw,34px);text-wrap:balance}
+    .flow{grid-template-columns:repeat(2,minmax(0,1fr))}.flow li:last-child{grid-column:span 2}
+    .stack,.stack tbody,.stack tr,.stack th,.stack td{display:block}
+    .stack colgroup,.stack thead{display:none}
+    .stack tbody th{border-bottom:0;padding-bottom:4px}
+    .stack td{border:0;padding-top:5px}
+    .stack td + td{padding-top:0}
+    .stack tr + tr{border-top:1px solid var(--line)}
+    .stack td[data-label]::before{content:attr(data-label) "　";font-weight:750;color:var(--ink)}
+  }
+  @media print{
+    @page{size:A4;margin:13mm 14mm}
+    body{background:white;color:#222;font-size:10.5pt;line-height:1.52}
+    .wrap{width:100%}.nav,.copytools{display:none}.hero{background:white;color:#222;padding:5mm 0 3mm;border-top:3px solid #a23e09}
+    .hero h1,.hero .meta,.hero .flow b,.hero .flow li{color:#222}.hero h1{font-size:29pt}.hero p,.intro{font-size:11pt}.hero .meta{margin-bottom:8px}
+    .flow{background:#cabdb2;grid-template-columns:repeat(5,minmax(0,1fr))}.hero .flow li{background:white;padding:5px 7px;grid-column:auto}.flow b{font-size:10pt}
+    main>section{padding:6mm 0}.heading{margin-bottom:7px}h2{font-size:18pt}h3,h4{font-size:14pt}
+    h1,h2,h3,h4,.heading,.copyhead{break-after:avoid}.panel,.creative,li,tr,.note,pre{break-inside:avoid}
+    .twocol,.metrics,.preview{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sources{columns:2}
+    .panel,.creative,pre,.note{padding:8px 10px}th,td,pre{font-size:10pt;line-height:1.47}th,td{padding:5px 7px}
+    .refs{font-size:9pt}a{color:#333}.table{overflow:visible}footer{background:white;border-top:1px solid #cabdb2;padding:12px 0}
+  }
+
+    .hero h1{font-size:clamp(34px,4.7vw,62px);text-wrap:balance}
+    .small{font-size:15px;color:var(--muted)}
+    .keyline{padding:.85em 1.1em;border:1px solid var(--line);background:var(--white);border-radius:6px}
+    .table:has(th[scope="row"] code) tbody th{font-size:16px}
+    .callout{font-size:19px;border-left:4px solid var(--accent);padding:.55em .85em;background:var(--warm)}
+    @media(max-width:600px){.hero h1{font-size:clamp(27px,7.7vw,35px)}}
+    @media print{.hero h1{font-size:25pt}.small{font-size:9pt}.callout{font-size:11pt}.keyline{break-inside:avoid}thead{display:table-header-group}}
+  
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="meta"><span>株式会社アイスタンダード　河﨑 雄太 様</span><span>2026年11月17日 · 12月 vella打ち合わせ用</span></div>
+<h1>Meta広告<br>自動化運用効率化仕様書</h1>
+<p>Facebook・Instagram広告。vellaの既存素材と反応データを起点に、Museで制作案を作り、配置別に展開します。制作から始め、事前承認済みの広告だけを条件付きで自動切り替えできるようにします。</p>
+<ol class="flow" aria-label="全体の流れ"><li><b>01　蓄積</b><span>素材と実績を整理</span></li>
+<li><b>02　制作</b><span>Museで起案・配置別出力</span></li>
+<li><b>03　承認</b><span>原稿・画像・条件を確定</span></li>
+<li><b>04　切替</b><span>審査・配信を照合</span></li>
+<li><b>05　改善</b><span>計測・復旧・次の制作</span></li></ol>
+</div></header>
+<nav class="nav" aria-label="目次"><div class="wrap"><a href="#scope">導入範囲</a><a href="#production">制作</a><a href="#switch">自動切替</a><a href="#operations">運用</a><a href="#meeting">12月レビュー</a><button type="button" id="print-doc">印刷・PDF保存</button></div></nav>
+<main class="wrap">
+<section id="scope"><div class="heading"><span>01</span><h2>制作と入札を並行で進める</h2></div>
+<p class="intro">12月のvellaとの打ち合わせまでに、受領素材を使った制作例、承認・切替手順、異常時の復旧例を用意します。入札は既存の自動化設定で運用し、vellaによる変更の記録を蓄積します。クリエイティブの工程は並行して立ち上げます。</p>
+<div class="table"><table class="stack"><caption class="visually-hidden">共有事項とMeta側の対応</caption><colgroup><col style="width:25%"><col style="width:75%"></colgroup><thead><tr><th scope="col">前提</th><th scope="col">本仕様の範囲</th></tr></thead><tbody>
+<tr><th scope="row">対象事業・成果</th><td>vellaが使っていた広告の対象サービス、表示先、成果イベントを受領素材から特定。求人・フリーランス募集、案件登録、法人問い合わせでは成果と審査条件が異なるため、初期検証では1サービス・1成果イベントに絞る。対象の広告アカウントとテスト用広告セットを確定する。</td></tr>
+<tr><th scope="row">既存の入札と上限</th><td>入札の設定変更は既存の担当範囲で継続。上限を残し、日予算とCPA目標で制御する方針。Metaの対象セットに適用される実際の上限・予算階層・最適化イベント・入札方式・CPA目標を確認して台帳に保存。制作・切替処理は広告単位の作成と配信状態の変更だけを扱う。</td></tr>
+<tr><th scope="row">媒体配分</th><td>10月共有額はGoogle 60万円／X 20万円／Meta 20万円。11月は流入優先でGoogle 80万円。Metaの11月額・12月の検証費用は未確認。配信予算が決まるまでは素材制作、停止状態での入稿、過去データや模擬ケースによる切替検証を進める。</td></tr>
+<tr><th scope="row">参考情報</th><td>Googleの掲載機会損失に関する約7割の共有は、Google仕様書の検証項目として扱う。求人ボックス、FreelanceBoard、Adecco、フリーランスHub、Xは表現・流入計測の参考。成果を比較する際は、応募・登録・問い合わせを区別する。</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>導入順</strong><br>① 自動作成・検査と人による承認 → ② 停止状態での登録と切替の模擬運転 → ③ 承認済みの広告と条件に限った自動切替。12月の打ち合わせでは①の試作と②・③の条件案をレビューします。</div>
+<p>日本のMuseは、担当者が許諾済み情報を渡して訴求や原稿を作る用途で利用。Muse for Small BusinessのMeta広告接続は日本の対象アカウントで利用可否を確認します。切替処理はMuseの接続可否に依存させず、Meta広告マネージャまたは権限確認後の公式Marketing APIで行います。</p>
+<p class="refs"><a href="https://about.fb.com/ja/news/2026/10/muse-personal-ai-agent-launches-in-japan/">Muse日本提供の発表</a><a href="https://muse.ai/business">Muse for Small Businessの提供情報</a><a href="https://developers.facebook.com/documentation/ads-commerce/marketing-api">Meta Marketing API</a></p>
+</section>
+<section id="production"><div class="heading"><span>02</span><h2>vellaの知見を使った自動作成</h2></div>
+<div class="table"><table class="stack"><caption class="visually-hidden">制作台帳と承認の項目</caption><colgroup><col style="width:24%"><col style="width:76%"></colgroup><thead><tr><th scope="col">台帳</th><th scope="col">登録する項目</th></tr></thead><tbody>
+<tr><th scope="row">素材・知見</th><td>素材ID・ファイル・利用権と期限、使用した広告ID、訴求、配置、LP、期間、広告費・表示・クリック・CV、当時の配信条件、反応が良かった点、検証したい仮説。権利不明の素材は参照だけとし、出力に含めない。過去結果の条件とvellaの見立てを区別する。</td></tr>
+<tr><th scope="row">広告原稿・版</th><td>依頼ID、訴求IDと版、使用根拠ID、画像素材ID・テンプレート版、配置、本文・見出し・CTA、遷移先と計測用パラメータ、ファイル指紋、検査結果。親ID、責任者、確認時刻、利用期限を持つ。</td></tr>
+<tr><th scope="row">切替許可</th><td>対象アカウント／広告セットID、新旧広告ID、承認済み版、切替条件、許可期間、比較条件、重複配信の上限、費用警戒値、夜間・休日の対応、復旧先と担当者。</td></tr>
+<tr><th scope="row">操作・変更履歴</th><td>実行ID、日時、媒体、対象ID、変更種別（入札／予算／原稿など）、変更前後、理由、結果、再確認時刻。vellaの変更ID、広告マネージャの履歴、切替ジョブの履歴を時系列で照合する。</td></tr>
+</tbody></table></div>
+<ol class="steps">
+<li><strong>広告運用担当が1件の制作依頼を登録</strong><p>対象サービス、訴求すべき課題、LP、成果イベント、vellaが反応を確認した素材、扱える事実、使用不可の表現を指定。初回は現行版を比較対象とし、新案で変える要素を1つ選ぶ。</p></li>
+<li><strong>Museで原稿案と構成案を出力</strong><p>各案に仮説、根拠ID、画像素材ID、本文、見出し、画像内文言、CTA、媒体配置、確認事項を含める。担当者がJSONを台帳に取り込み、不足項目や未登録のIDは差し戻す。Museへの入力は公開情報・許諾済み素材・入力可能な集計値に限定。</p></li>
+<li><strong>テンプレートから配置別に一括出力</strong><p>同一訴求の短い見出し・背景・CTAを2つのマスターに差し込み、フィード向け4:5（1080×1350）、ストーリーズ向け9:16（1080×1920）の初期素材を作る。Facebook／Instagramの対象配置、表示の欠け、ロゴ、UIとの重なりは媒体プレビューで確認する。</p></li>
+<li><strong>事業責任者が完成版を承認</strong><p>媒体プレビュー、広告文の根拠、権利・求人条件、実際の遷移先と計測を確認。採用・募集に当たる場合は対象地域と媒体ポリシーに応じたカテゴリ・配信設定を既存アカウントで確認。画像・原稿・LPを変えた場合は新しい版で承認し直す。</p></li>
+</ol>
+<pre>【Museに渡す指示の例】
+vella素材ID［　］の反応が良かった要素［　］を、根拠のある仮説として引き継ぐ。
+対象・遷移先・CTAは同じ条件で、変える要素を1つに絞って新案を1件返す。
+出力：訴求ID、仮説、根拠ID、素材ID、本文、見出し、画像内文言、CTA、確認事項。
+報酬・応募条件・実績など、LPや根拠にない内容は補わず、確認事項に記載する。</pre>
+<p class="refs"><a href="https://www.facebook.com/business/ads-guide">Meta広告ガイド</a><a href="https://developers.facebook.com/docs/graph-api/reference/adcampaigngroup/?locale=ja_JP">特別な広告カテゴリの参照</a></p>
+</section>
+<section id="switch"><div class="heading"><span>03</span><h2>承認済み広告の自動切替</h2></div>
+<p class="intro">切替を自動化する段階でも、対象広告IDと完成版を先に承認します。運用責任者が切替条件と許可期間を登録した後は、条件を満たす回ごとに人が操作する工程を省きます。生成直後の未承認案は登録候補として扱います。</p>
+<div class="table"><table class="stack"><caption class="visually-hidden">自動切替の状態と処理</caption><colgroup><col style="width:23%"><col style="width:39%"><col style="width:38%"></colgroup><thead><tr><th scope="col">状態</th><th scope="col">開始条件</th><th scope="col">処理・結果</th></tr></thead><tbody>
+<tr><th scope="row">停止状態で登録</th><td>表現承認、アカウント・親広告セットの許可、版一致、対象広告セットのポリシー確認。</td><td>画像とクリエイティブを登録し、候補を別広告IDで <code>PAUSED</code> 作成。設定を読み戻す。最初は本番配信と切り離した停止中の検証用広告セットで試す。</td></tr>
+<tr><th scope="row">切替待ち</th><td>承認済み版・期間内。審査と配信可能状態、実績の鮮度、費用残、入札／予算の変更、手動操作を照合。</td><td>判定対象は次行の条件と照合。審査否認、審査結果が取れない、API結果が不明、既存設定が変更済みの場合は保留・通知。旧広告は通常運用を継続。</td></tr>
+<tr><th scope="row">候補を有効化</th><td>①事前承認の切替日時に到達、または②事前承認の劣化条件を満たす。いずれも候補の審査・計測・費用枠・親の状態が正常で、vellaの変更が影響する評価期間外。</td><td>候補だけを有効化。旧広告は、候補の実配信を確認するまで維持する。新旧併走には測定用の上限時間と予算余力を設定。超過時または併走を許可できない場合は人が切替を判断。</td></tr>
+<tr><th scope="row">新広告へ切替完了</th><td>規定時間内に、候補の有効状態と配信実績、遷移と計測の疎通を確認。初回CVの発生は待たず、計測テストと実配信で確認する。</td><td>旧広告のみ停止し、新旧広告の状態を再取得。ID・時刻・理由・配信状態を記録。旧版と設定を復旧用に保存し、切替後に監視する。</td></tr>
+<tr><th scope="row">保留・復旧</th><td>候補の無配信、リンク不通、費用上限の切迫、重大な審査・権利異常、取得障害、外部変更。</td><td>旧広告が稼働中なら候補を停止。切替後に旧版への復帰が必要なときは、旧版の承認・審査・費用枠・親の状態が正常な場合のみ復帰。誤配信・権利不備・上限事故は該当広告を先に停止。自動化を停止し担当者へ通知。</td></tr>
+</tbody></table></div>
+<h3>劣化で切り替える場合の初期案</h3>
+<p>初回は日時を指定した切替で手順を検証し、CPAなどの実績による切替は、vellaとルールを決めて模擬運転を通した後に追加します。例として、成熟済みの7日間で主CVが10件以上あり、CPAが目標の1.25倍を2評価日連続で超えた場合に候補を確認します。いずれも試行値です。CV反映の遅延、前回の切替からの待機期間、vellaの設定変更、計測異常を先に確認し、少数CV・0件やCTRの単独変動で切り替えません。連続判定の窓は重なるため、悪化の継続確認として扱います。</p>
+<p>候補への入れ替え後は、旧広告との前後差に入札・配置・曜日・競合の影響が含まれます。訴求の効果を測る場合は、利用可能な広告マネージャのA/Bテストで比較し、実験中の自動切替は停止します。</p>
+<div class="keyline"><strong>模擬ケース｜候補が配信されない</strong>　承認済みの候補を有効化した後、併走の上限時刻までに新広告の表示を確認できなかった場合は、候補だけを停止し、旧広告を継続します。実績データの取得障害なら判定を保留し、次の起動で自動的に再有効化せず、担当者の確認を待ちます。</div>
+<p class="refs"><a href="https://developers.facebook.com/docs/graph-api/reference/adgroup/">Meta広告の状態と作成仕様</a><a href="https://www.facebookblueprint.com/student/path/219763-ab-test-conversion-brand-lift-course">Meta広告マネージャのテスト設計</a></p>
+</section>
+<section id="operations"><div class="heading"><span>04</span><h2>日次点検と実装要件</h2></div>
+<div class="twocol">
+<div class="panel"><h4>実績と費用を把握する</h4><ul>
+<li>日付×広告IDで消化額・表示・リンククリック・主CV・CPAを取得。配置別表示は補助分析に使う。帰属条件・通貨・タイムゾーン・取得時刻を保存し、遅延分を再集計する。</li>
+<li>同一CVイベントの重複をテスト。PixelとConversions APIを併用する場合はイベント名・IDで重複排除し、媒体CVと有効応募・有効登録などの業務上の成果を区別。</li>
+<li>営業日ごとに媒体費・審査・CV計測・切替履歴を確認。既存上限の種類（入札額／アカウント費用／キャンペーン費用／社内枠）と設定値、対象階層を台帳に記録。日予算・CPA目標と照合し、費用データの遅延や配信の重複を考慮して余裕を確保する。</li>
+</ul></div>
+<div class="panel"><h4>誤配信と二重処理を防ぐ</h4><ul>
+<li>広告の作成・状態変更だけを処理側で許可し、対象アカウント・親ID・新旧広告IDを照合。アカウントや親が停止、担当者が手動停止、設定に差がある場合は書き込みを中止する。</li>
+<li>広告セット単位の排他制御と承認版ごとの一意キーを使う。同一操作を重複実行しない。レスポンス不明時はIDや命名キーで状態と作成結果を読み戻してから再試行。確認できなければ保留。</li>
+<li>切替停止の設定と、広告マネージャからの手動対応権限を責任者と代理に用意。自動処理の停止と、配信中の広告停止は別操作として記録する。</li>
+</ul></div>
+</div>
+<p>初期構成は、権限付きDriveとスプレッドシートの台帳、Apps ScriptによるJSON取込・必須項目検査・CSV出力、承認したデザインテンプレート、広告マネージャ。定常化後はInsightsの読み取りから始め、必要なアプリ審査・広告権限・状態取得を実アカウントで確認してから、停止入稿と切替処理を追加します。APIの有効状態だけで実配信を確定せず、実績値と取得時刻も照合します。</p>
+<p class="refs"><a href="https://developers.facebook.com/docs/graph-api/reference/adaccount/insights">Meta Insightsの取得仕様</a><a href="https://developers.facebook.com/documentation/ads-commerce/marketing-api">Metaの公式API</a></p>
+</section>
+<section id="meeting"><div class="heading"><span>05</span><h2>12月のvellaレビュー</h2></div>
+<div class="twocol"><div class="panel"><h4>打ち合わせ前に準備</h4><ul>
+<li>vellaの過去広告から比較に使える現行例と反応の知見を1件選び、参照条件と素材の利用権を確かめる。</li>
+<li>現行と新案を、フィード・ストーリーズの2配置で並べて確認できる形にする。予算・許可が未確定でも制作と停止状態までを検証する。</li>
+<li>正常切替、審査否認、API失敗、候補無配信、手動停止、復旧の各ケースを模擬運転し、広告IDとログの例を準備する。</li>
+</ul></div><div class="panel"><h4>vellaと決めること</h4><ul>
+<li>初期サービスと主CV、素材と表現の使用可否、再現する訴求、12月のMeta試験予算。</li>
+<li>上限の種類・値、日予算・CPA目標の適用先、併走できる時間と費用、設定変更後の評価待ち。</li>
+<li>切替許可の責任者と代理、審査・配信確認の方法、ルールの初期値と次段階へ進む基準。</li>
+</ul></div></div>
+<div class="note"><strong>受入条件</strong>　初期版では、承認できる新案が2配置で出力され、素材・版・承認者・操作を全件追跡できること。次段階では、正常切替・審査否認・重複起動・API応答不明・手動停止・復旧を検証し、承認外の配信、重複入稿、入札・予算の意図しない変更が各0件であることを確認します。速度は、制作依頼から入稿準備完了までの実作業を従来と同形式で測定し、削減目標はvellaレビューで合意します。</div>
+<p class="small">案件の前提・予算はアイスタンダード担当者の共有に基づく。媒体アカウント、素材、実績値の照合と切替試験は、必要データを受領してから行う。</p>
+</section>
+</main>
+<footer><div class="wrap"><p>鈴木章裕<br>株式会社コミクス 代表取締役</p></div></footer>
+<script>
+document.getElementById('print-doc').addEventListener('click', () => window.print());
+</script>
+</body>
+</html>
